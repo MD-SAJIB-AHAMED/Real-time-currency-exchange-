@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyberpunk Currency Converter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="neon-title">কারেন্সি কনভার্টার</h1>
+    <div class="converter-card">
+      <div class="field">
+        <label for="from-currency">থেকে</label>
+        <select id="from-currency"></select>
+      </div>
+      <div class="field">
+        <label for="to-currency">এ</label>
+        <select id="to-currency"></select>
+      </div>
+      <div class="field">
+        <label for="amount">পরিমাণ</label>
+        <input type="number" id="amount" placeholder="০০.০০" value="1" />
+      </div>
+      <button id="convert-btn">রূপান্তর কর</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

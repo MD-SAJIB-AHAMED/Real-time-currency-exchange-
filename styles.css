@@ -1,0 +1,99 @@
+/* === Global Reset & Font === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: #0a0a0a;
+  color: #eee;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === Container & Title === */
+.container {
+  text-align: center;
+}
+.neon-title {
+  font-size: 3rem;
+  color: #0ff;
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #f0f,
+    0 0 80px #f0f;
+  margin-bottom: 2rem;
+}
+
+/* === Card === */
+.converter-card {
+  background: rgba(20,20,20,0.8);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow:
+    0 0 10px rgba(0,255,255,0.3),
+    0 0 20px rgba(255,0,255,0.2);
+  width: 320px;
+}
+
+/* === Fields === */
+.field {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+.field label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  color: #0ff;
+}
+.field select,
+.field input {
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 6px;
+  background: #111;
+  color: #eee;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 0 0 5px rgba(0,255,255,0.2);
+}
+.field select option {
+  background: #111;
+}
+
+/* === Button === */
+#convert-btn {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(45deg, #0ff, #f0f);
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 10px rgba(0,255,255,0.5),
+    0 0 20px rgba(255,0,255,0.3);
+  transition: transform 0.1s ease-in-out;
+}
+#convert-btn:active {
+  transform: scale(0.97);
+}
+
+/* === Result === */
+.result {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  color: #f0f;
+  text-shadow: 0 0 5px rgba(255,0,255,0.7);
+}
