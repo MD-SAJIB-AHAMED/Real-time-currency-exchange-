@@ -1,127 +1,76 @@
-/* ==== Same global styles + additions below ==== */
 body {
+  margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background: #0a0a0a;
-  color: #eee;
-  height: 100vh;
+  background: radial-gradient(circle at center, #0f0f0f, #050505);
+  color: #00f9ff;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid #00f9ff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 0 20px #00f9ff;
+  max-width: 400px;
+  width: 90%;
   text-align: center;
 }
-.neon-title {
-  font-size: 3rem;
-  color: #0ff;
-  text-shadow:
-    0 0 5px #0ff,
-    0 0 10px #0ff,
-    0 0 20px #0ff,
-    0 0 40px #f0f,
-    0 0 80px #f0f;
-  margin-bottom: 2rem;
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #00f9ff;
 }
 
-.converter-card {
-  background: rgba(20,20,20,0.8);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,255,255,0.3),
-              0 0 20px rgba(255,0,255,0.2);
-  width: 340px;
-}
-
-.field {
-  margin-bottom: 1.2rem;
-  text-align: left;
+.exchange-box > div {
+  margin-bottom: 15px;
 }
 
 label {
-  color: #0ff;
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
   display: block;
-}
-
-.select-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  margin-bottom: 5px;
+  color: #eee;
 }
 
 select,
 input {
   width: 100%;
-  padding: 0.6rem;
+  padding: 10px;
   background: #111;
-  border: none;
-  border-radius: 6px;
-  color: #eee;
-  box-shadow: inset 0 0 5px rgba(0,255,255,0.2);
-  font-size: 1rem;
-  outline: none;
+  color: #00f9ff;
+  border: 1px solid #00f9ff;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
-select option {
-  background: #111;
-}
-
-.flag {
-  width: 24px;
-  height: 16px;
-  border: 1px solid #333;
-}
-
-#swap-btn {
-  margin: 1rem auto;
-  display: block;
-  background: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border: none;
-  color: #0ff;
-  transition: transform 0.2s ease-in-out;
-}
-#swap-btn:hover {
-  transform: rotate(180deg);
-}
-
-#convert-btn {
+button {
   width: 100%;
-  padding: 0.8rem;
-  background: linear-gradient(45deg, #0ff, #f0f);
-  border: none;
-  border-radius: 6px;
+  padding: 12px;
+  background: #00f9ff;
   color: #000;
   font-weight: bold;
-  font-size: 1.1rem;
-  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,255,255,0.5),
-              0 0 20px rgba(255,0,255,0.3);
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #00c2cc;
 }
 
 .result {
-  margin-top: 1.5rem;
-  font-size: 1.2rem;
-  color: #f0f;
-  text-shadow: 0 0 5px rgba(255,0,255,0.7);
+  margin-top: 20px;
+  font-size: 18px;
+  color: #fff;
 }
 
-.history {
-  margin-top: 1.5rem;
-  text-align: left;
-}
-.history h3 {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  color: #0ff;
-}
-#history-list {
-  font-size: 0.85rem;
-  list-style: disc;
-  padding-left: 1rem;
-  color: #ccc;
+.footer {
+  margin-top: 30px;
+  font-size: 12px;
+  color: #777;
 }
