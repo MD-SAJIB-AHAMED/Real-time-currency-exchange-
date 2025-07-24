@@ -12,26 +12,38 @@
     <h1 class="neon-title">Currency Converter</h1>
     <div class="converter-card">
       <div class="field">
-        <label for="from-currency">From Currency</label>
-        <select id="from-currency">
-          <option value="">Loading...</option>
-        </select>
+        <label for="from-currency">From</label>
+        <div class="select-wrapper">
+          <img id="from-flag" class="flag" src="" alt="Flag">
+          <select id="from-currency"></select>
+        </div>
       </div>
+
+      <button id="swap-btn" title="Swap currencies">🔄</button>
+
       <div class="field">
-        <label for="to-currency">To Currency</label>
-        <select id="to-currency">
-          <option value="">Loading...</option>
-        </select>
+        <label for="to-currency">To</label>
+        <div class="select-wrapper">
+          <img id="to-flag" class="flag" src="" alt="Flag">
+          <select id="to-currency"></select>
+        </div>
       </div>
+
       <div class="field">
         <label for="amount">Amount</label>
-        <input type="number" id="amount" placeholder="Enter amount" value="1" />
+        <input type="number" id="amount" value="1" />
       </div>
+
       <button id="convert-btn">Convert</button>
-      <div id="result" class="result"></div>
+      <div id="result" class="result">Result will appear here</div>
+
+      <div class="history">
+        <h3>Recent Conversions</h3>
+        <ul id="history-list"></ul>
+      </div>
     </div>
   </div>
-  
+
   <script src="script.js"></script>
 </body>
 </html>
