@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
 }
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 body {
   font-family: 'Orbitron', sans-serif;
   background: #0a0a0a;
@@ -33,12 +32,12 @@ body {
 
 /* === Card === */
 .converter-card {
-  background: rgba(20,20,20,0.8);
+  background: rgba(20, 20, 20, 0.8);
   padding: 2rem;
   border-radius: 12px;
   box-shadow:
-    0 0 10px rgba(0,255,255,0.3),
-    0 0 20px rgba(255,0,255,0.2);
+    0 0 10px rgba(0, 255, 255, 0.3),
+    0 0 20px rgba(255, 0, 255, 0.2);
   width: 320px;
 }
 
@@ -63,10 +62,11 @@ body {
   color: #eee;
   font-size: 1rem;
   outline: none;
-  box-shadow: inset 0 0 5px rgba(0,255,255,0.2);
+  box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
 }
 .field select option {
   background: #111;
+  color: #eee;
 }
 
 /* === Button === */
@@ -82,8 +82,8 @@ body {
   cursor: pointer;
   text-transform: uppercase;
   box-shadow:
-    0 0 10px rgba(0,255,255,0.5),
-    0 0 20px rgba(255,0,255,0.3);
+    0 0 10px rgba(0, 255, 255, 0.5),
+    0 0 20px rgba(255, 0, 255, 0.3);
   transition: transform 0.1s ease-in-out;
 }
 #convert-btn:active {
@@ -95,5 +95,5 @@ body {
   margin-top: 1.5rem;
   font-size: 1.2rem;
   color: #f0f;
-  text-shadow: 0 0 5px rgba(255,0,255,0.7);
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.7);
 }
