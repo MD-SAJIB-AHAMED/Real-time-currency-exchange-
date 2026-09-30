@@ -2,62 +2,95 @@ const fromCurrency = document.getElementById('fromCurrency');
 const toCurrency = document.getElementById('toCurrency');
 const amount = document.getElementById('amount');
 const result = document.getElementById('result');
+const exchangeRate = document.getElementById('exchangeRate');
 const convertBtn = document.getElementById('convert');
 
-// Load currency symbols
+// কারেন্সি কোড এবং সিম্বল/ফ্ল্যাগ ম্যাপ
+const currencyList = {
+"SAR": "🇸🇦 Saudi Arabia (SAR - ﷼)",
+"BDT": "🇧🇩 Bangladesh (BDT - ৳)",
+"USD": "🇺🇸 United States (USD - )",
+"AUD": "🇦🇺 Australia (AUD - )"
+};
+
+// কারেন্সি লিস্ট লোড করার ফাংশন
 async function loadCurrencies() {
 try {
-const response = await fetch('https://api.frankfurter.app/currencies');
-const currencies = await response.json();
+const response = await fetch('https://open.er-api.com/v6/latest/USD');
+const data = await response.json();
+const apiCurrencies = data.rates;
 
-for (const code in currencies) {
-const option1 = document.createElement('option');
-option1.value = code;
-option1.text = ${code} - ${currencies[code]};
+fromCurrency.innerHTML = '';
+toCurrency.innerHTML = '';
 
-const option2 = option1.cloneNode(true);
+// কাস্টম লিস্ট থেকে অপশন তৈরি
+for (const code in currencyList) {
+if (apiCurrencies[code]) {
+const option1 = new Option(currencyList[code], code);
+const option2 = new Option(currencyList[code], code);
 
-fromCurrency.appendChild(option1);
-toCurrency.appendChild(option2);
+fromCurrency.add(option1);
+toCurrency.add(option2);
+}
 }
 
-fromCurrency.value = 'USD';
-toCurrency.value = 'EUR';
+// বাকী সকল দেশের কারেন্সি যোগ করার জন্য
+for (const code in apiCurrencies) {
+if (!currencyList[code]) {
+const option1 = new Option(${code}, code); const option2 = new Option(``${code}, code);
+
+fromCurrency.add(option1);
+toCurrency.add(option2);
+}
+}
+
+// ডিফল্ট সিলেক্ট: Saudi Arabia (SAR) -> Bangladesh (BDT)
+fromCurrency.value = 'SAR';
+toCurrency.value = 'BDT';
 
 } catch (error) {
-result.innerText = 'Failed to load currencies.';
+result.innerText = 'Failed to load country list.';
 console.error(error);
 }
 }
 
-// Convert Currency
-convertBtn.addEventListener('click', async () => {
+// কারেন্সি কনভার্ট করার ফাংশন
+async function convertCurrency() {
 const from = fromCurrency.value;
 const to = toCurrency.value;
-const amt = amount.value;
+const amt = parseFloat(amount.value);
 
-if (!from || !to || !amt || amt <= 0) {
+if (!amt || amt <= 0) {
 result.innerText = 'Please enter a valid amount.';
+exchangeRate.innerText = '';
 return;
 }
 
-if (from === to) {
-result.innerText = ${amt} ${from} = ${amt} ${to};
-return;
-}
+result.innerText = 'Converting...';
+exchangeRate.innerText = '';
 
 try {
-result.innerText = 'Converting...';
-const response = await fetch(https://api.frankfurter.app/latest?amount=${amt}&from=${from}&to=${to}`);
+const response = await fetch(https://open.er-api.com/v6/latest/${from}`);
 const data = await response.json();
 
-const convertedAmount = data.rates[to].toFixed(2);
-result.innerText = ``${amt} {convertedAmount} ${to}`;
+if (data.result === "success") {
+const rate = data.rates[to];
+const totalAmount = (amt * rate).toFixed(2);
+
+// মূল রেজাল্ট
+result.innerText = ``${amt} {totalAmount} ${to};
+
+// নিচে ১ ইউনিট কারেন্সির বর্তমান রেট দেখাবে
+exchangeRate.innerText = Current Rate: 1${from} = {to}`;
+} else {
+result.innerText = 'Conversion error!';
+}
 } catch (error) {
-result.innerText = 'Conversion failed.';
+result.innerText = 'Failed to fetch conversion rate.';
 console.error(error);
 }
-});
+}
 
-// Load currencies on page load
+// ইভেন্ট লিসেনার
+convertBtn.addEventListener('click', convertCurrency);
 window.addEventListener('DOMContentLoaded', loadCurrencies);
