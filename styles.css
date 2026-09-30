@@ -1,76 +1,83 @@
+• {
+box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: radial-gradient(circle at center, #0f0f0f, #050505);
-  color: #00f9ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+margin: 0;
+font-family: 'Orbitron', sans-serif;
+background: radial-gradient(circle at center, #0f0f0f, #050505);
+color: #00f9ff;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
 }
 
 .container {
-  background: rgba(0, 255, 255, 0.1);
-  border: 1px solid #00f9ff;
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 0 20px #00f9ff;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
+background: rgba(0, 255, 255, 0.1);
+border: 1px solid #00f9ff;
+border-radius: 15px;
+padding: 30px;
+box-shadow: 0 0 20px #00f9ff;
+max-width: 400px;
+width: 90%;
+text-align: center;
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #00f9ff;
+font-size: 24px;
+margin-bottom: 20px;
+color: #00f9ff;
 }
 
 .exchange-box > div {
-  margin-bottom: 15px;
+margin-bottom: 15px;
+text-align: left;
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
-  color: #eee;
+display: block;
+margin-bottom: 5px;
+color: #eee;
 }
 
 select,
 input {
-  width: 100%;
-  padding: 10px;
-  background: #111;
-  color: #00f9ff;
-  border: 1px solid #00f9ff;
-  border-radius: 8px;
-  font-size: 16px;
+width: 100%;
+padding: 10px;
+background: #111;
+color: #00f9ff;
+border: 1px solid #00f9ff;
+border-radius: 8px;
+font-size: 16px;
+outline: none;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background: #00f9ff;
-  color: #000;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
+width: 100%;
+padding: 12px;
+background: #00f9ff;
+color: #000;
+font-weight: bold;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: background 0.3s;
 }
 
 button:hover {
-  background: #00c2cc;
+background: #00c2cc;
 }
 
 .result {
-  margin-top: 20px;
-  font-size: 18px;
-  color: #fff;
+margin-top: 20px;
+font-size: 18px;
+color: #fff;
+word-break: break-all;
 }
 
 .footer {
-  margin-top: 30px;
-  font-size: 12px;
-  color: #777;
+margin-top: 30px;
+font-size: 12px;
+color: #777;
 }

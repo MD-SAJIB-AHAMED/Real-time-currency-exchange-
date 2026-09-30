@@ -6,47 +6,57 @@ const convertBtn = document.getElementById('convert');
 
 // Load currency symbols
 async function loadCurrencies() {
-  try {
-    const response = await fetch('https://api.exchangerate.host/symbols');
-    const data = await response.json();
-    const symbols = data.symbols;
+try {
+const response = await fetch('https://api.frankfurter.app/currencies');
+const currencies = await response.json();
 
-    for (const key in symbols) {
-      const option1 = document.createElement('option');
-      option1.value = key;
-      option1.text = `${key} - ${symbols[key].description}`;
+for (const code in currencies) {
+const option1 = document.createElement('option');
+option1.value = code;
+option1.text = ${code} - ${currencies[code]};
 
-      const option2 = option1.cloneNode(true);
+const option2 = option1.cloneNode(true);
 
-      fromCurrency.appendChild(option1);
-      toCurrency.appendChild(option2);
-    }
-
-    fromCurrency.value = 'USD';
-    toCurrency.value = 'BDT';
-
-  } catch (error) {
-    result.innerText = 'Failed to load currencies.';
-    console.error(error);
-  }
+fromCurrency.appendChild(option1);
+toCurrency.appendChild(option2);
 }
 
+fromCurrency.value = 'USD';
+toCurrency.value = 'EUR';
+
+} catch (error) {
+result.innerText = 'Failed to load currencies.';
+console.error(error);
+}
+}
+
+// Convert Currency
 convertBtn.addEventListener('click', async () => {
-  const from = fromCurrency.value;
-  const to = toCurrency.value;
-  const amt = amount.value;
+const from = fromCurrency.value;
+const to = toCurrency.value;
+const amt = amount.value;
 
-  if (!from || !to || !amt) return;
+if (!from || !to || !amt || amt <= 0) {
+result.innerText = 'Please enter a valid amount.';
+return;
+}
 
-  try {
-    const response = await fetch(`https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amt}`);
-    const data = await response.json();
+if (from === to) {
+result.innerText = ${amt} ${from} = ${amt} ${to};
+return;
+}
 
-    result.innerText = `${amt} ${from} = ${data.result.toFixed(2)} ${to}`;
-  } catch (error) {
-    result.innerText = 'Conversion failed.';
-    console.error(error);
-  }
+try {
+result.innerText = 'Converting...';
+const response = await fetch(https://api.frankfurter.app/latest?amount=${amt}&from=${from}&to=${to}`);
+const data = await response.json();
+
+const convertedAmount = data.rates[to].toFixed(2);
+result.innerText = ``${amt} {convertedAmount} ${to}`;
+} catch (error) {
+result.innerText = 'Conversion failed.';
+console.error(error);
+}
 });
 
 // Load currencies on page load
