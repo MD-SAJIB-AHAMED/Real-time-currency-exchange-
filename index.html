@@ -1,36 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Real-time Currency Exchange</title>
-<link rel="stylesheet" href="styles.css" />
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: radial-gradient(circle at center, #0f0f0f, #050505);
+color: #00f9ff;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+.container {
+background: rgba(0, 255, 255, 0.05);
+border: 1px solid #00f9ff;
+border-radius: 12px;
+padding: 25px;
+box-shadow: 0 0 15px rgba(0, 249, 255, 0.2);
+width: 360px;
+text-align: center;
+}
+
+h1 {
+font-size: 20px;
+margin-bottom: 20px;
+color: #00f9ff;
+}
+
+.form-group {
+margin-bottom: 15px;
+text-align: left;
+}
+
+label {
+display: block;
+margin-bottom: 5px;
+font-size: 13px;
+color: #ccc;
+}
+
+select, input {
+width: 100%;
+padding: 10px;
+background: #090a0f;
+color: #00f9ff;
+border: 1px solid #00f9ff;
+border-radius: 6px;
+font-size: 14px;
+outline: none;
+}
+
+select option {
+background: #111;
+color: #fff;
+}
+
+button {
+width: 100%;
+padding: 12px;
+background: #00f9ff;
+color: #000;
+font-weight: bold;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+margin-top: 10px;
+font-size: 15px;
+transition: background 0.3s;
+}
+
+button:hover {
+background: #00c2cc;
+}
+
+.result {
+margin-top: 20px;
+font-size: 16px;
+font-weight: bold;
+color: #fff;
+}
+
+.rate-info {
+margin-top: 8px;
+font-size: 12px;
+color: #00f9ff;
+}
+
+.footer {
+margin-top: 20px;
+font-size: 11px;
+color: #666;
+}
+</style>
 </head>
 <body>
+
 <div class="container">
 <h1>💱 Currency Exchange</h1>
-<div class="exchange-box">
-<div>
-<label for="fromCurrency">From:</label>
+
+<div class="form-group">
+<label>From:</label>
 <select id="fromCurrency"></select>
 </div>
-<div>
-<label for="toCurrency">To:</label>
+
+<div class="form-group">
+<label>To:</label>
 <select id="toCurrency"></select>
 </div>
-<div>
-<label for="amount">Amount:</label>
-<input type="number" id="amount" value="1" min="1" placeholder="Enter amount" />
-</div>
-<button id="convert">Convert</button>
+
+<div class="form-group">
+<label>Amount:</label>
+<input type="number" id="amount" value="1" min="1">
 </div>
 
-<!-- ফলাফল এবং কারেন্ট রেট দেখানোর জায়গা -->
-<div class="result" id="result">Select currency and click Convert</div>
-<div class="exchange-rate" id="exchangeRate"></div>
+<button onclick="convertCurrency()">Convert</button>
+
+<div class="result" id="resultText">Loading currencies...</div>
+<div class="rate-info" id="rateText"></div>
 
 <p class="footer">Developed by SAJIB</p>
 </div>
-<script src="script.js"></script>
+
+<script>
+const fromSelect = document.getElementById('fromCurrency');
+const toSelect = document.getElementById('toCurrency');
+const amountInput = document.getElementById('amount');
+const resultText = document.getElementById('resultText');
+const rateText = document.getElementById('rateText');
+
+let apiRates = {};
+
+// Global Country/Currency Names
+const currencyNames = {
+"SAR": "🇸🇦 Saudi Arabia (SAR - ﷼)",
+"BDT": "🇧🇩 Bangladesh (BDT - ৳)",
+"USD": "🇺🇸 United States (USD - )",
+"AUD": "🇦🇺 Australia (AUD - )",
+"JPY": "🇯🇵 Japan (JPY - ¥)",
+"CNY": "🇨🇳 China (CNY - ¥)",
+"PKR": "🇵🇰 Pakistan (PKR - ₨)",
+"LKR": "🇱🇰 Sri Lanka (LKR - Rs)"
+};
+
+async function loadAllCurrencies() {
+try {
+const res = await fetch('https://open.er-api.com/v6/latest/USD');
+const data = await res.json();
+
+if (data.result === "success") {
+apiRates = data.rates;
+
+fromSelect.innerHTML = '';
+toSelect.innerHTML = '';
+
+// Add customized names first
+for (let code in currencyNames) {
+if (apiRates[code]) {
+fromSelect.add(new Option(currencyNames[code], code));
+toSelect.add(new Option(currencyNames[code], code));
+}
+}
+
+// Add remaining currencies from API
+for (let code in apiRates) {
+if (!currencyNames[code]) {
+fromSelect.add(new Option(${code} (Currency), code)); toSelect.add(new Option(``${code} (Currency), code));
+}
+}
+
+fromSelect.value = 'SAR';
+toSelect.value = 'BDT';
+convertCurrency();
+} else {
+resultText.innerText = "Failed to load exchange rates.";
+}
+} catch (err) {
+// Fallback rates if API fetch is blocked locally
+apiRates = { "USD": 1, "SAR": 3.75, "BDT": 119.5, "EUR": 0.92, "GBP": 0.79, "INR": 83.5, "AED": 3.67, "MYR": 4.70, "KWD": 0.31, "QAR": 3.64 };
+fromSelect.innerHTML = '';
+toSelect.innerHTML = '';
+for (let code in currencyNames) {
+fromSelect.add(new Option(currencyNames[code], code));
+toSelect.add(new Option(currencyNames[code], code));
+}
+fromSelect.value = 'SAR';
+toSelect.value = 'BDT';
+convertCurrency();
+}
+}
+
+function convertCurrency() {
+const from = fromSelect.value;
+const to = toSelect.value;
+const amt = parseFloat(amountInput.value);
+
+if (isNaN(amt) || amt <= 0) {
+resultText.innerText = "Please enter a valid amount.";
+rateText.innerText = "";
+return;
+}
+
+if (!apiRates[from] || !apiRates[to]) {
+resultText.innerText = "Rate unavailable.";
+return;
+}
+
+const amountInUSD = amt / apiRates[from];
+const convertedValue = amountInUSD * apiRates[to];
+const singleUnitRate = (1 / apiRates[from]) * apiRates[to];
+
+resultText.innerText = ${amt} ${from} = ${convertedValue.toFixed(2)} ${to};
+rateText.innerText = Current Rate: 1 ${from} = ${singleUnitRate.toFixed(4)} ${to};
+}
+
+window.addEventListener('DOMContentLoaded', loadAllCurrencies);
+</script>
+
 </body>
 </html>
